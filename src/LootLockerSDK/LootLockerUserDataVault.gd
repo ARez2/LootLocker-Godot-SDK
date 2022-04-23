@@ -1,18 +1,52 @@
 @tool
 extends Node
-
-@export var API_KEY := ""
-@export var SERVER_API_KEY := ""
-@export var DOMAIN_KEY := ""
-@export var GAME_VERSION := ""
+class_name LootLockerDataVault
 
 
-@export var SAVE_API_KEYS := false:
+const USERDATA_FILEPATH = "res://LootLockerSDK/UserData.cfg"
+
+@export var API_KEY := "":
 	set(v):
-		LootLocker.GAME_VERSION = GAME_VERSION
-		LootLocker.save_to_userfile("SERVER_API_KEY", SERVER_API_KEY)
-		SERVER_API_KEY = ""
-		LootLocker.save_to_userfile("API_KEY", API_KEY)
+		save_to_userfile("API_KEY", v)
 		API_KEY = ""
-		LootLocker.save_to_userfile("DOMAIN_KEY", DOMAIN_KEY)
+@export var SERVER_API_KEY := "":
+	set(v):
+		save_to_userfile("SERVER_API_KEY", v)
+		SERVER_API_KEY = ""
+@export var DOMAIN_KEY := "":
+	set(v):
+		save_to_userfile("DOMAIN_KEY", v)
 		DOMAIN_KEY = ""
+
+
+
+@export var GAME_VERSION := "":
+	set(v):
+		GAME_VERSION = v
+		save_to_userfile("GAME_VERSION", v)
+
+
+
+static func save_to_userfile(keyname : String, value):
+	if value == "":
+		return
+	print("save")
+	var section_name = "UserData"
+	var password = OS.get_unique_id()
+	var config = ConfigFile.new()
+	var error = config.load_encrypted_pass(USERDATA_FILEPATH, password)
+	if error == ERR_FILE_NOT_FOUND:
+		print("Creating new UserData.cfg file...")
+	config.set_value(section_name, keyname, value)
+	config.save_encrypted_pass(USERDATA_FILEPATH, password)
+
+
+static func load_from_userfile(keyname):
+	var section_name = "UserData"
+	var password = OS.get_unique_id()
+	var config = ConfigFile.new()
+	var error = config.load_encrypted_pass(USERDATA_FILEPATH, password)
+	if error == OK:
+		return config.get_value(section_name, keyname)
+	else:
+		print(error)
