@@ -9,7 +9,6 @@ anchor_bottom = 1.0
 script = ExtResource( "1_2t1hi" )
 
 [node name="LootLockerUserDataVault" parent="." instance=ExtResource( "2_ub8n6" )]
-GAME_VERSION = "1.0.0.0"
 
 [node name="Label" type="Label" parent="."]
 anchor_left = 0.5

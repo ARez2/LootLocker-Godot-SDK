@@ -30,13 +30,13 @@ const USERDATA_FILEPATH = "res://LootLockerSDK/UserData.cfg"
 static func save_to_userfile(keyname : String, value):
 	if value == "":
 		return
-	print("save")
 	var section_name = "UserData"
 	var password = OS.get_unique_id()
+	password = "123"
 	var config = ConfigFile.new()
 	var error = config.load_encrypted_pass(USERDATA_FILEPATH, password)
 	if error == ERR_FILE_NOT_FOUND:
-		print("Creating new UserData.cfg file...")
+		print("UserData.cfg file not found. Creating new UserData.cfg file...")
 	config.set_value(section_name, keyname, value)
 	config.save_encrypted_pass(USERDATA_FILEPATH, password)
 
@@ -44,6 +44,7 @@ static func save_to_userfile(keyname : String, value):
 static func load_from_userfile(keyname):
 	var section_name = "UserData"
 	var password = OS.get_unique_id()
+	password = "123"
 	var config = ConfigFile.new()
 	var error = config.load_encrypted_pass(USERDATA_FILEPATH, password)
 	if error == OK:

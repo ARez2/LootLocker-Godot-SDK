@@ -1,7 +1,9 @@
 extends Node
 var API_KEY = ""
 var DOMAIN_KEY = ""
-var GAME_VERSION = ""
+var GAME_VERSION = "1.0"
+
+var DEV_MODE = false
 
 var json = JSON.new()
 var session : LootLockerSession = null
@@ -13,7 +15,9 @@ var leaderboards : LootLockerLeaderboards = LootLockerLeaderboards.new()
 func _ready():
 	API_KEY = LootLockerDataVault.load_from_userfile("API_KEY")
 	DOMAIN_KEY = LootLockerDataVault.load_from_userfile("DOMAIN_KEY")
-	GAME_VERSION = LootLockerDataVault.load_from_userfile("GAME_VERSION")
+	#GAME_VERSION = LootLockerDataVault.load_from_userfile("GAME_VERSION")
+	if API_KEY == null or DOMAIN_KEY == null:
+		return
 
 
 func setup(api_key : String, domain_key : String, version : String):
@@ -29,7 +33,7 @@ func try_authorize():
 	var data = {
 		"game_key": API_KEY,
 		"game_version": str(GAME_VERSION),
-		"development_mode": false,
+		"development_mode": DEV_MODE,
 	}
 	await send_request("v2/session/guest", data, on_auth)
 
@@ -40,32 +44,6 @@ func on_auth(response : Dictionary):
 	current_user.id = response.get("player_id")
 
 
-
-
-# ----------------------- PROBABLY NOT THE RIGHT PLACE TO DO IT -----------------------
-
-func submit_score(leaderboard_name : String = "live_scores"):
-	var data = {
-		"member_id": str(current_user.id),
-		"score": randi_range(0, 1000),
-	}
-	send_request("leaderboards/%s/submit" % leaderboard_name, data, on_submit_score)
-
-func retrieve_score(leaderboard_name : String = "live_scores", num_scores := 10):
-	send_request("leaderboards/%s/list?count=%d&after=%d" % [leaderboard_name, num_scores, 0], null, on_retrieve_score, HTTPClient.METHOD_GET)
-
-func on_submit_score(response : Dictionary) -> LootLockerLeaderboardResult:
-	var result = LootLockerLeaderboardResult.new()
-	result.rank = int(response.get("rank"))
-	result.member_id = response.get("member_id").to_int()
-	result.score = int(response.get("score"))
-	result.metadata = response.get("metadata")
-	return result
-
-func on_retrieve_score(response : Dictionary):
-	print(response)
-
-# -------------------------------------------------------------------------------------
 
 
 
@@ -86,19 +64,19 @@ func send_request(url : String, data = null, callback = null, method := HTTPClie
 	http.use_threads = true
 	if callback:
 		http.request_completed.connect(_http_request_completed.bind(callback))
-		http.request_completed.connect(http.queue_free)
 	var header = ["Content-Type: application/json"]
 	if is_authorized():
 		header.append("x-session-token: %s" % session.token)
 	url = build_url(url)
 	if data != null:
 		var data_string = json.stringify(data)
-		#printt("URL: ", url, "", "Data: ", data_string)
+		printt("URL: ", url, "", "Data: ", data_string)
 		http.request(url, header, true, method, str(data_string))
 	else:
 		printt("URL: ", url)
 		http.request(url, header, true, method)
 	await http.request_completed
+	http.queue_free()
 
 
 

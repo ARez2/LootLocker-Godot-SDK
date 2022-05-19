@@ -9,10 +9,30 @@
 config_version=5
 
 _global_script_classes=[{
+"base": "Node",
+"class": &"LootLockerDataVault",
+"language": &"GDScript",
+"path": "res://LootLockerSDK/LootLockerUserDataVault.gd"
+}, {
+"base": "RefCounted",
+"class": &"LootLockerLeaderboardPagination",
+"language": &"GDScript",
+"path": "res://LootLockerSDK/leaderboards/LeaderboardsPagination.gd"
+}, {
 "base": "RefCounted",
 "class": &"LootLockerLeaderboardResult",
 "language": &"GDScript",
 "path": "res://LootLockerSDK/leaderboards/LeaderboardResult.gd"
+}, {
+"base": "RefCounted",
+"class": &"LootLockerLeaderboards",
+"language": &"GDScript",
+"path": "res://LootLockerSDK/leaderboards/LootLockerLeaderboards.gd"
+}, {
+"base": "RefCounted",
+"class": &"LootLockerLeaderboardsResponse",
+"language": &"GDScript",
+"path": "res://LootLockerSDK/leaderboards/LeaderboardsResponse.gd"
 }, {
 "base": "RefCounted",
 "class": &"LootLockerSession",
@@ -25,7 +45,11 @@ _global_script_classes=[{
 "path": "res://LootLockerSDK/user/LootLockerUser.gd"
 }]
 _global_script_class_icons={
+"LootLockerDataVault": "",
+"LootLockerLeaderboardPagination": "",
 "LootLockerLeaderboardResult": "",
+"LootLockerLeaderboards": "",
+"LootLockerLeaderboardsResponse": "",
 "LootLockerSession": "",
 "LootLockerUser": ""
 }
