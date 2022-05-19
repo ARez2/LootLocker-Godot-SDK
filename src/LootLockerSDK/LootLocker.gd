@@ -45,6 +45,60 @@ func on_auth(response : Dictionary):
 
 
 
+# ----------------------- PROBABLY NOT THE RIGHT PLACE TO DO IT -----------------------
+
+signal retrieved_user_data(result)
+signal retrieved_player_name(result)
+
+func set_user_data(player_name : String = "player_name", player_xp : int = -1):
+	set_name(player_name)
+	set_xp(player_xp)
+
+func get_user_data():
+	send_request("v1/player/info" , null, on_set_name)
+	var result = await retrieved_user_data
+	return result
+
+func on_get_info(response : Dictionary):
+	retrieved_user_data.emit(response)
+
+func set_user_name(player_name : String = "player_name"):
+	var data = {
+		"name" : player_name
+	}
+	send_request("player/name" , data, on_set_name)
+
+func get_current_user_name():
+	send_request("player/name" , null, on_get_name)
+	var result = await retrieved_player_name
+	return result
+
+func on_set_name(response : Dictionary):
+	print(response)
+	if current_user == null:
+		current_user = LootLockerUser.new()
+	current_user.username = response.get("name")
+
+func on_get_name(response : Dictionary):
+	retrieved_player_name.emit(response.get("name"))
+
+func set_xp(player_xp : int = -1):
+	var data = {
+		"points" : player_xp
+	}
+	send_request("v1/player/xp" , data, on_set_xp)
+
+func on_set_xp(response : Dictionary):
+	if current_user == null:
+		current_user = LootLockerUser.new()
+	print(response)
+	current_user.xp = int(response.get("xp").get("current"))
+
+# -------------------------------------
+
+
+
+
 
 
 

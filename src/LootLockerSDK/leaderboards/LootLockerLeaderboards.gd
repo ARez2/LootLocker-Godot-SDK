@@ -2,6 +2,11 @@ class_name LootLockerLeaderboards
 
 signal retrieved_leaderboard_result(leaderboards_response : LootLockerLeaderboardsResponse)
 
+# TODO:
+# https://ref.lootlocker.io/game-api/#get-all-member-ranks
+# https://ref.lootlocker.io/game-api/#get-score-list
+# https://ref.lootlocker.io/game-api/#submit-score
+
 
 func get_member_rank(leaderboard_name : String, member_id : int = LootLocker.current_user.id) -> LootLockerLeaderboardsResponse:
 	if member_id != null:
