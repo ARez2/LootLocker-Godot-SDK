@@ -44,6 +44,15 @@ func get_score_list(leaderboard_name : String, count: int = 3, after: int = 0) -
 
 
 
+func submit_score(leaderboard_name : String, score : int, member_id : int = LootLocker.current_user.id, metadata = null) -> LootLockerLeaderboardsResponse:
+	var data = {
+		"member_id": str(member_id),
+		"score": score,
+		"metadata": metadata,
+	}
+	LootLocker.send_request("leaderboards/%s/submit" % leaderboard_name, data, on_retrieve_leaderboard_result)
+	var response = await retrieved_leaderboard_result
+	return response
 
 
 func extract_result(from_dict) -> LootLockerLeaderboardResult:
@@ -83,7 +92,7 @@ func on_retrieve_leaderboard_result(response : Dictionary, grouping_name : Strin
 		pag = LootLockerLeaderboardPagination.new()
 		pag.total = int(pag_dict.get("total"))
 		pag.next_cursor = int(pag_dict.get("next_cursor"))
-		if pag_dict.get("previous_cursor") != null and pag_dict.get("previous_cursor") != "null":
+		if pag_dict.get("previous_cursor") != null:
 			pag.previous_cursor = int(pag_dict.get("previous_cursor"))
 	
 	leaderboards_response.result = results

@@ -41,6 +41,7 @@ func on_auth(response : Dictionary):
 	session = LootLockerSession.new()
 	session.token = response.get("session_token")
 	current_user = LootLockerUser.new()
+	print(response)
 	current_user.id = response.get("player_id")
 
 
@@ -142,4 +143,5 @@ func _http_request_completed(result, response_code, headers, body, callback : Ca
 		printt("An error occured: ", response.get("error"), response.get("message"))
 		return
 	
-	callback.call(response)
+	if callback != null:
+		callback.call(response)
