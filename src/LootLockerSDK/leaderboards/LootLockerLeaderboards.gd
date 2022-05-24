@@ -1,13 +1,18 @@
 class_name LootLockerLeaderboards
 
+# Used to adress the Leaderboards part of the LootLocker API
+# Often returns the LootLockerLeaderboardsResponse wrapper-class which includes the result of
+# the API request (rank, score, member) and may include a pagination class (if returned in the response)
+
+
+# Emitted once the API responds to the request and the returned data has been processed
 signal retrieved_leaderboard_result(leaderboards_response : LootLockerLeaderboardsResponse)
 
 # TODO:
 # https://ref.lootlocker.io/game-api/#get-all-member-ranks
-# https://ref.lootlocker.io/game-api/#get-score-list
-# https://ref.lootlocker.io/game-api/#submit-score
 
 
+# Get rank for single member for a leaderboard
 func get_member_rank(leaderboard_name : String, member_id : int = LootLocker.current_user.id) -> LootLockerLeaderboardsResponse:
 	if member_id != null:
 		LootLocker.send_request("leaderboards/%s/member/%s" \
@@ -17,6 +22,7 @@ func get_member_rank(leaderboard_name : String, member_id : int = LootLocker.cur
 	return null
 
 
+# Get ranks for list of members for a leaderboard. This can be helpful when getting a players friends on leaderboard
 func get_member_list_ranks(leaderboard_name : String, member_ids : Array[int]) -> LootLockerLeaderboardsResponse:
 	var data = {
 		"members": member_ids,
@@ -27,6 +33,7 @@ func get_member_list_ranks(leaderboard_name : String, member_ids : Array[int]) -
 
 
 
+# Get all leaderboards with member information on the ones the member is on, with rank and score
 func get_all_members_ranks(member_id: int = LootLocker.current_user.id) -> LootLockerLeaderboardsResponse:
 	print("Not working right now.")
 	return null
@@ -35,7 +42,12 @@ func get_all_members_ranks(member_id: int = LootLocker.current_user.id) -> LootL
 	return response
 
 
+# Get list of members in rank range. Result is sorted by rank ascending.
+# Maximum allowed members to query for at a time is currently 2000.
 func get_score_list(leaderboard_name : String, count: int = 3, after: int = 0) -> LootLockerLeaderboardsResponse:
+	# Cap the requested members to the API limit
+	count = min(count, 2000)
+
 	LootLocker.send_request("leaderboards/%s/list?count=%s&after=%s" \
 	#% [leaderboard_name, count, after], null, on_retrieve_leaderboard_result, HTTPClient.METHOD_GET)
 	% [leaderboard_name, count, after], null, on_retrieve_leaderboard_result.bind("items"), HTTPClient.METHOD_GET)
@@ -44,6 +56,8 @@ func get_score_list(leaderboard_name : String, count: int = 3, after: int = 0) -
 
 
 
+# Submit scores for member on leaderboard. The member_id in the Game API is automatically
+# filled with the currently authenticated players id.
 func submit_score(leaderboard_name : String, score : int, member_id : int = LootLocker.current_user.id, metadata = null) -> LootLockerLeaderboardsResponse:
 	var data = {
 		"member_id": str(member_id),
@@ -55,6 +69,8 @@ func submit_score(leaderboard_name : String, score : int, member_id : int = Loot
 	return response
 
 
+
+# Creates and returns a LootLockerLeaderboardResult class which stores the values returned by the API
 func extract_result(from_dict) -> LootLockerLeaderboardResult:
 	var res = LootLockerLeaderboardResult.new()
 	res.member_id = from_dict.get("member_id").to_int()
@@ -70,23 +86,28 @@ func extract_result(from_dict) -> LootLockerLeaderboardResult:
 	res.metadata = from_dict.get("metadata")
 	return res
 
+# Used as callback, is called by LootLocker.gd in the '_http_request_completed' method
 func on_retrieve_leaderboard_result(response : Dictionary, grouping_name : String = ""):
+	# Initializes the required classes so if there are errors, at least return empty objects
 	var leaderboards_response := LootLockerLeaderboardsResponse.new()
 	var results : Array[LootLockerLeaderboardResult] = []
 	var pag : LootLockerLeaderboardPagination = null
 	
+	# Catches 'Error' Responses by LootLocker
 	var error = response.get("error")
 	if error != null and error != "":
 		print("Error when fetching response: ", error)
 		print("Error message: ", response.get("message"))
 		return leaderboards_response
 	
+	# Sometimes the response data is wrapped in an extra JSON header
 	if response.get(grouping_name) != null:
 		for member in response.get(grouping_name):
 			results.append(extract_result(member))
 	else:
 		results.append(extract_result(response))
-		
+	
+	# If pagination data is returned by the API, fill the LootLockerPagination class with this data
 	if response.get("pagination") != null:
 		var pag_dict : Dictionary = response.get("pagination")
 		pag = LootLockerLeaderboardPagination.new()
