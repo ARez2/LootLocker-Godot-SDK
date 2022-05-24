@@ -102,9 +102,10 @@ func on_set_xp(response : Dictionary):
 
 
 
-
+# Adds the standard url, which is appended to every API call anyways
 func build_url(extra_url = "") -> String:
 	var base_url = ""
+	# Putting the game domain key into the url isn't necessary but seems like a good habit
 	if is_authorized():
 		base_url = "https://%s.api.lootlocker.io" % DOMAIN_KEY
 	else:
@@ -113,12 +114,16 @@ func build_url(extra_url = "") -> String:
 	return url
 
 
+# Builds the API request URL
+# Therefore creates a new HTTPRequest Node which is added as a child of the Autoload LootLocker
+# After finishing, the HTTPRequest Node is deleted
 func send_request(url : String, data = null, callback = null, method := HTTPClient.METHOD_POST):
 	var http = HTTPRequest.new()
 	add_child(http)
 	http.use_threads = true
 	if callback:
 		http.request_completed.connect(_http_request_completed.bind(callback))
+	# Those Headers are required by LootLocker
 	var header = ["Content-Type: application/json"]
 	if is_authorized():
 		header.append("x-session-token: %s" % session.token)
@@ -134,7 +139,7 @@ func send_request(url : String, data = null, callback = null, method := HTTPClie
 	http.queue_free()
 
 
-
+# Generalized Function to catch HTTPRequest errors before calling the Callback function (which then utilises the response)
 func _http_request_completed(result, response_code, headers, body, callback : Callable):
 	var response = json.parse(body.get_string_from_utf8())
 	if response == OK:
