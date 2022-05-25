@@ -1,5 +1,6 @@
 class_name LootLockerLeaderboardsResponse
 
-var result : Array[LootLockerLeaderboardResult] = []
+# Array[LootLockerLeaderboardsResult]
+var result : = []
 var pagination : LootLockerLeaderboardPagination = null
-
+var error : LootLockerError = null

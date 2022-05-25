@@ -1,6 +1,6 @@
 class_name LootLockerLeaderboards
 
-signal retrieved_leaderboard_result(leaderboards_response : LootLockerLeaderboardsResponse)
+signal retrieved_leaderboard_result(leaderboards_response)
 
 # TODO:
 # https://ref.lootlocker.io/game-api/#get-all-member-ranks
@@ -8,55 +8,12 @@ signal retrieved_leaderboard_result(leaderboards_response : LootLockerLeaderboar
 # https://ref.lootlocker.io/game-api/#submit-score
 
 
-func get_member_rank(leaderboard_name : String, member_id : int = LootLocker.current_user.id) -> LootLockerLeaderboardsResponse:
-	if member_id != null:
-		LootLocker.send_request("leaderboards/%s/member/%s" \
-		% [leaderboard_name, str(member_id)], null, on_retrieve_leaderboard_result.bind("members"), HTTPClient.METHOD_GET)
-		var response = await retrieved_leaderboard_result
-		return response
-	return null
-
-
-func get_member_list_ranks(leaderboard_name : String, member_ids : Array[int]) -> LootLockerLeaderboardsResponse:
-	var data = {
-		"members": member_ids,
-	}
-	LootLocker.send_request("leaderboards/%s/members" % leaderboard_name, data, on_retrieve_leaderboard_result.bind("members"), HTTPClient.METHOD_GET)
-	var response = await retrieved_leaderboard_result
-	return response
-
-
-
-func get_all_members_ranks(member_id: int = LootLocker.current_user.id) -> LootLockerLeaderboardsResponse:
-	print("Not working right now.")
-	return null
-	LootLocker.send_request("leaderboards/member/%s" % member_id, null, on_retrieve_leaderboard_result, HTTPClient.METHOD_GET)
-	var response = await retrieved_leaderboard_result
-	return response
-
-
-func get_score_list(leaderboard_name : String, count: int = 3, after: int = 0) -> LootLockerLeaderboardsResponse:
-	LootLocker.send_request("leaderboards/%s/list?count=%s&after=%s" \
-	#% [leaderboard_name, count, after], null, on_retrieve_leaderboard_result, HTTPClient.METHOD_GET)
-	% [leaderboard_name, count, after], null, on_retrieve_leaderboard_result.bind("items"), HTTPClient.METHOD_GET)
-	var response = await retrieved_leaderboard_result
-	return response
-
-
-
-func submit_score(leaderboard_name : String, score : int, member_id : int = LootLocker.current_user.id, metadata = null) -> LootLockerLeaderboardsResponse:
-	var data = {
-		"member_id": str(member_id),
-		"score": score,
-		"metadata": metadata,
-	}
-	LootLocker.send_request("leaderboards/%s/submit" % leaderboard_name, data, on_retrieve_leaderboard_result)
-	var response = await retrieved_leaderboard_result
-	return response
 
 
 func extract_result(from_dict) -> LootLockerLeaderboardResult:
 	var res = LootLockerLeaderboardResult.new()
+	if !from_dict.has("member_id"):
+		return null
 	res.member_id = from_dict.get("member_id").to_int()
 	res.rank = from_dict.get("rank")
 	res.score = from_dict.get("score")
@@ -70,22 +27,35 @@ func extract_result(from_dict) -> LootLockerLeaderboardResult:
 	res.metadata = from_dict.get("metadata")
 	return res
 
-func on_retrieve_leaderboard_result(response : Dictionary, grouping_name : String = ""):
+func on_retrieve_leaderboard_result(response : Dictionary, grouping_name := ""):
 	var leaderboards_response := LootLockerLeaderboardsResponse.new()
-	var results : Array[LootLockerLeaderboardResult] = []
+	var results = []
 	var pag : LootLockerLeaderboardPagination = null
 	
 	var error = response.get("error")
 	if error != null and error != "":
-		print("Error when fetching response: ", error)
-		print("Error message: ", response.get("message"))
+		var err = LootLockerError.new()
+		err.error_string = error + ": " + response.get("message")
+		leaderboards_response.error = err
 		return leaderboards_response
-	
+		
 	if response.get(grouping_name) != null:
 		for member in response.get(grouping_name):
-			results.append(extract_result(member))
+			var r = extract_result(member)
+			if r == null:
+				var err = LootLockerError.new()
+				err.error_string = "Recieved wrong API response. Make sure every previous API Call is completed using yield/ await"
+				leaderboards_response.error = err
+			else:
+				results.append(r)
 	else:
-		results.append(extract_result(response))
+		var r = extract_result(response)
+		if r == null:
+			var err = LootLockerError.new()
+			err.error_string = "Recieved wrong API response. Make sure every previous API Call is completed using yield/ await"
+			leaderboards_response.error = err
+		else:
+			results.append(r)
 		
 	if response.get("pagination") != null:
 		var pag_dict : Dictionary = response.get("pagination")
@@ -98,4 +68,60 @@ func on_retrieve_leaderboard_result(response : Dictionary, grouping_name : Strin
 	leaderboards_response.result = results
 	leaderboards_response.pagination = pag
 	
-	retrieved_leaderboard_result.emit(leaderboards_response)
+	emit_signal("retrieved_leaderboard_result", leaderboards_response)
+	return leaderboards_response
+
+
+
+func get_member_rank(leaderboard_name : String, member_id : int = LootLocker.current_user.id) -> LootLockerLeaderboardsResponse:
+	if member_id != null:
+		LootLocker.send_request("leaderboards/%s/member/%s" \
+		% [leaderboard_name, str(member_id)], null, HTTPClient.METHOD_GET)
+		var res = yield(LootLocker, "api_response")
+		res = on_retrieve_leaderboard_result(res)
+		return res
+	return null
+
+
+func get_member_list_ranks(leaderboard_name : String, member_ids) -> LootLockerLeaderboardsResponse:
+	var data = {
+		"members": member_ids,
+	}
+	LootLocker.send_request("leaderboards/%s/members" % leaderboard_name, data, HTTPClient.METHOD_GET)
+	var res = yield(LootLocker, "api_response")
+	res = on_retrieve_leaderboard_result(res, "members")
+	return res
+
+
+
+func get_all_members_ranks(member_id: int = LootLocker.current_user.id) -> LootLockerLeaderboardsResponse:
+	print("Not working right now.")
+	return null
+	LootLocker.send_request("leaderboards/member/%s" % member_id, null, HTTPClient.METHOD_GET)
+	var res = yield(LootLocker, "api_response")
+	res = on_retrieve_leaderboard_result(res, "members")
+	return res
+
+
+func get_score_list(leaderboard_name : String, count: int = 3, after: int = 0) -> LootLockerLeaderboardsResponse:
+	LootLocker.send_request("leaderboards/%s/list?count=%s&after=%s" \
+	#% [leaderboard_name, count, after], null, on_retrieve_leaderboard_result, HTTPClient.METHOD_GET)
+	% [leaderboard_name, count, after], null, HTTPClient.METHOD_GET)
+	var res = yield(LootLocker, "api_response")
+	res = on_retrieve_leaderboard_result(res, "items")
+	return res
+
+
+
+func submit_score(leaderboard_name : String, score : int, member_id : int = LootLocker.current_user.id, metadata = null) -> LootLockerLeaderboardsResponse:
+	var data = {
+		"member_id": str(member_id),
+		"score": score,
+		"metadata": metadata,
+	}
+	LootLocker.send_request("leaderboards/%s/submit" % leaderboard_name, data)
+	var res = yield(LootLocker, "api_response")
+	res = on_retrieve_leaderboard_result(res)
+	return res
+
+
