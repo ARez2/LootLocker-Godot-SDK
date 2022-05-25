@@ -1,3 +1,4 @@
 class_name LootLockerError
 
-var error_string = ""
+var error = ""
+var error_message = ""

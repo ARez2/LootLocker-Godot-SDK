@@ -35,7 +35,8 @@ func on_retrieve_leaderboard_result(response : Dictionary, grouping_name := ""):
 	var error = response.get("error")
 	if error != null and error != "":
 		var err = LootLockerError.new()
-		err.error_string = error + ": " + response.get("message")
+		err.error = error
+		err.error_message = response.get("message")
 		leaderboards_response.error = err
 		return leaderboards_response
 		
