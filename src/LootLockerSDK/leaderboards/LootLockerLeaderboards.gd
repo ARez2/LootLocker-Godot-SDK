@@ -96,8 +96,10 @@ func on_retrieve_leaderboard_result(response : Dictionary, grouping_name : Strin
 	# Catches 'Error' Responses by LootLocker
 	var error = response.get("error")
 	if error != null and error != "":
-		print("Error when fetching response: ", error)
-		print("Error message: ", response.get("message"))
+		var err = LootLockerError.new()
+		err.error = error
+		err.error_message = response.get("message")
+		leaderboards_response.error = err
 		return leaderboards_response
 	
 	# Sometimes the response data is wrapped in an extra JSON header
