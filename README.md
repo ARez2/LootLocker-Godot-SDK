@@ -2,6 +2,11 @@
 
 ## Disclaimer
 This was just the beginning of an SDK for Godot. The LootLocker Team said that it has plans for an official Godot SDK, but as for now, this is what I came up with.
+It also by far does not cover all the LootLocker features as I have just added the most important features that I needed. Those include
+- User authentication
+- Leaderboards
+- (WIP) User Data (XP, Level)
+
 
 ## Quick Start
 
