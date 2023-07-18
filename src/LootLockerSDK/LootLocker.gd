@@ -30,18 +30,20 @@ func is_authorized() -> bool:
 	return session != null
 
 func try_authorize():
+	print("try_authorize")
 	var data = {
 		"game_key": API_KEY,
 		"game_version": str(GAME_VERSION),
 		"development_mode": DEV_MODE,
 	}
+	print("send_request[v2/session/guest]")
 	await send_request("v2/session/guest", data, on_auth)
 
 func on_auth(response : Dictionary):
 	session = LootLockerSession.new()
 	session.token = response.get("session_token")
 	current_user = LootLockerUser.new()
-	print(response)
+	print("on_auth: response= "+str(response))
 	current_user.id = response.get("player_id")
 
 
@@ -99,7 +101,6 @@ func on_set_xp(response : Dictionary):
 
 
 
-
 # Adds the standard url, which is appended to every API call anyways
 func build_url(extra_url = "") -> String:
 	var base_url = ""
@@ -118,6 +119,7 @@ func build_url(extra_url = "") -> String:
 func send_request(url : String, data = null, callback = null, method := HTTPClient.METHOD_POST):
 	var http = HTTPRequest.new()
 	add_child(http)
+	#TODO: add cfg for use_threads
 	http.use_threads = true
 	if callback:
 		http.request_completed.connect(_http_request_completed.bind(callback))
@@ -126,6 +128,7 @@ func send_request(url : String, data = null, callback = null, method := HTTPClie
 	if is_authorized():
 		header.append("x-session-token: %s" % session.token)
 	url = build_url(url)
+	print("send_request: url="+url)
 	if data != null:
 		var data_string = JSON.stringify(data)
 		printt("send_request: URL: ", url, "", "Data: [", data_string,"]")
@@ -141,11 +144,14 @@ func send_request(url : String, data = null, callback = null, method := HTTPClie
 # Generalized Function to catch HTTPRequest errors before calling the Callback function (which then utilises the response)
 func _http_request_completed(result, response_code, headers, body, callback : Callable):
 	var response = json.parse(body.get_string_from_utf8())
+	print("_http_request_completed: resp="+str(response))
 	if response == OK:
+		print("_http_request_completed: resp OK")
 		response = json.get_data()
 	if response.get("success") == false:
 		printt("_http_request_completed: An error occured: Error=", response.get("error"), " Message=", response.get("message"))
 		return
 	
 	if callback != null:
+		print("_http_request_completed: use callback")
 		callback.call(response)
