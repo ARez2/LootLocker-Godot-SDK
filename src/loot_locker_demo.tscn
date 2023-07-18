@@ -4,13 +4,18 @@
 [ext_resource type="PackedScene" uid="uid://b7qd4t3exgdjg" path="res://LootLockerSDK/LootLockerUserDataVault.tscn" id="2_ub8n6"]
 
 [node name="LootLockerDemo" type="Control"]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource( "1_2t1hi" )
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2t1hi")
 
-[node name="LootLockerUserDataVault" parent="." instance=ExtResource( "2_ub8n6" )]
+[node name="LootLockerUserDataVault" parent="." instance=ExtResource("2_ub8n6")]
 
 [node name="Label" type="Label" parent="."]
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
