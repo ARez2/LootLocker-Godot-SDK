@@ -15,7 +15,7 @@ var leaderboards : LootLockerLeaderboards = LootLockerLeaderboards.new()
 func _ready():
 	API_KEY = LootLockerDataVault.load_from_userfile("API_KEY")
 	DOMAIN_KEY = LootLockerDataVault.load_from_userfile("DOMAIN_KEY")
-	#GAME_VERSION = LootLockerDataVault.load_from_userfile("GAME_VERSION")
+	GAME_VERSION = LootLockerDataVault.load_from_userfile("GAME_VERSION")
 	if API_KEY == null or DOMAIN_KEY == null:
 		return
 
@@ -100,8 +100,6 @@ func on_set_xp(response : Dictionary):
 
 
 
-
-
 # Adds the standard url, which is appended to every API call anyways
 func build_url(extra_url = "") -> String:
 	var base_url = ""
@@ -129,12 +127,13 @@ func send_request(url : String, data = null, callback = null, method := HTTPClie
 		header.append("x-session-token: %s" % session.token)
 	url = build_url(url)
 	if data != null:
-		var data_string = json.stringify(data)
-		printt("URL: ", url, "", "Data: ", data_string)
-		http.request(url, header, true, method, str(data_string))
+		var data_string = JSON.stringify(data)
+		printt("send_request: URL: ", url, "", "Data: [", data_string,"]")
+		http.request(url, header, method, str(data_string))
 	else:
-		printt("URL: ", url)
-		http.request(url, header, true, method)
+		printt("send_request: URL: ", url)
+		http.request(url, header, method)
+	print("send_request: wait request_completed")
 	await http.request_completed
 	http.queue_free()
 
@@ -145,7 +144,7 @@ func _http_request_completed(result, response_code, headers, body, callback : Ca
 	if response == OK:
 		response = json.get_data()
 	if response.get("success") == false:
-		printt("An error occured: ", response.get("error"), response.get("message"))
+		printt("_http_request_completed: An error occured: Error=", response.get("error"), " Message=", response.get("message"))
 		return
 	
 	if callback != null:
