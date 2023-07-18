@@ -3,4 +3,4 @@
 [ext_resource type="Script" path="res://LootLockerSDK/LootLockerUserDataVault.gd" id="1_c4o3m"]
 
 [node name="LootLockerUserDataVault" type="Node"]
-script = ExtResource("1_c4o3m")
+script = ExtResource( "1_c4o3m" )
