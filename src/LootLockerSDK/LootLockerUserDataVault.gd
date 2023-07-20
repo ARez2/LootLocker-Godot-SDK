@@ -13,21 +13,21 @@ const USERDATA_FILEPATH = "res://LootLockerSDK/UserData.cfg"
 
 @export var API_KEY := "":
 	set(v):
-		save_to_userfile("API_KEY", v)
+		LootLockerDataVault.save_to_userfile("API_KEY", v)
 		API_KEY = ""
 @export var SERVER_API_KEY := "":
 	set(v):
-		save_to_userfile("SERVER_API_KEY", v)
+		LootLockerDataVault.save_to_userfile("SERVER_API_KEY", v)
 		SERVER_API_KEY = ""
 @export var DOMAIN_KEY := "":
 	set(v):
-		save_to_userfile("DOMAIN_KEY", v)
+		LootLockerDataVault.save_to_userfile("DOMAIN_KEY", v)
 		DOMAIN_KEY = ""
 
 @export var GAME_VERSION := "":
 	set(v):
 		GAME_VERSION = v
-		save_to_userfile("GAME_VERSION", v)
+		LootLockerDataVault.save_to_userfile("GAME_VERSION", v)
 
 
 # Saves the token into the ConfigFile and encrypts it using the operating systems unique ID (=password) 
