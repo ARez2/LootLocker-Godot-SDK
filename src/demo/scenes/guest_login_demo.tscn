@@ -1,0 +1,200 @@
+[gd_scene load_steps=2 format=3 uid="uid://dlnc8y5djmtqn"]
+
+[ext_resource type="Script" path="res://demo/scripts/guest_login_demo.gd" id="1_kqtlo"]
+
+[node name="guest-login-demo" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kqtlo")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Demo title" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Lootlocker Guest Login DEMO"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Spacer" type="TextureRect" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+
+[node name="HBoxContainer1" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="gameAPI" type="Label" parent="VBoxContainer/HBoxContainer1"]
+layout_mode = 2
+text = "Game API: "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="gameAPI Input" type="TextEdit" parent="VBoxContainer/HBoxContainer1"]
+custom_minimum_size = Vector2(250, 26)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+placeholder_text = " your game API here
+"
+autowrap_mode = 1
+scroll_fit_content_height = true
+caret_blink = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="leaderboardKey" type="Label" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "leaderboard Key: "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="leadbkey Input" type="TextEdit" parent="VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(250, 26)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+placeholder_text = "your leaderboard Key here
+"
+autowrap_mode = 1
+scroll_fit_content_height = true
+caret_blink = true
+
+[node name="DevMode CB" type="CheckBox" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+disabled = true
+text = "Dev. mode"
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="SliderTitle" type="Label" parent="VBoxContainer/HBoxContainer6"]
+layout_mode = 2
+text = "Player Index: "
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer/HBoxContainer6"]
+clip_contents = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+max_value = 9.0
+rounded = true
+tick_count = 10
+ticks_on_borders = true
+
+[node name="PlayerIdx" type="Label" parent="VBoxContainer/HBoxContainer6"]
+layout_mode = 2
+text = "-1"
+
+[node name="Spacer2" type="TextureRect" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Login" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Login"
+
+[node name="Logout" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Logout"
+
+[node name="Delete" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Delete Player"
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Load player" type="Button" parent="VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Load player data"
+
+[node name="Save player" type="Button" parent="VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Save player data"
+
+[node name="Status" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Working..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Player_id" type="Label" parent="VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Player id: "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Player_id_value" type="Label" parent="VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.486275, 0.486275, 0.486275, 1)
+text = "To be filled"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="session_token" type="Label" parent="VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "session token: "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="session_token_value" type="Label" parent="VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.486275, 0.486275, 0.486275, 1)
+text = "To be filled"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="text_changed" from="VBoxContainer/HBoxContainer1/gameAPI Input" to="." method="_on_game_api_input_text_changed"]
+[connection signal="value_changed" from="VBoxContainer/HBoxContainer6/HSlider" to="." method="_on_h_slider_value_changed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Login" to="." method="_on_login_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Logout" to="." method="_on_logout_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Delete" to="." method="_on_delete_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer5/Load player" to="." method="_on_load_player_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer5/Save player" to="." method="_on_save_player_pressed"]

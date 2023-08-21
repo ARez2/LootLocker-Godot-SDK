@@ -1,0 +1,187 @@
+[gd_scene load_steps=2 format=3 uid="uid://dly5t26tp8qoe"]
+
+[ext_resource type="Script" path="res://demo/scripts/white_label_demo.gd" id="1_uyqo8"]
+
+[node name="WhiteLabel-demo" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_uyqo8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "White Label authentication"
+
+[node name="EmailBox" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="email label" type="Label" parent="VBoxContainer/EmailBox"]
+layout_mode = 2
+text = "Email Address: "
+
+[node name="emailAddress" type="TextEdit" parent="VBoxContainer/EmailBox"]
+custom_minimum_size = Vector2(300, 30)
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../../PasswordBox/password")
+focus_next = NodePath("../../PasswordBox/password")
+placeholder_text = "your email address here"
+
+[node name="PasswordBox" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="password label" type="Label" parent="VBoxContainer/PasswordBox"]
+layout_mode = 2
+text = "Password: "
+
+[node name="password" type="TextEdit" parent="VBoxContainer/PasswordBox"]
+custom_minimum_size = Vector2(240, 30)
+layout_mode = 2
+focus_neighbor_top = NodePath("../../EmailBox/emailAddress")
+focus_previous = NodePath("../../EmailBox/emailAddress")
+placeholder_text = "your password (8 chars. min)"
+
+[node name="ButtonBox" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Sign-Up" type="Button" parent="VBoxContainer/ButtonBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Sign Up"
+
+[node name="Sign-In" type="Button" parent="VBoxContainer/ButtonBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Sign In"
+
+[node name="Remember" type="CheckBox" parent="VBoxContainer/ButtonBox"]
+layout_mode = 2
+text = "Remember me"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 80
+
+[node name="Status" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.85098, 0.666667, 0.698039, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/shadow_outline_size = 4
+text = "Uninitialized"
+
+[node name="SessionToken" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.85098, 0.666667, 0.698039, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/shadow_outline_size = 4
+text = "No session found"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="SessionCheckTitle" type="Label" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Verify Session Token"
+
+[node name="Token" type="TextEdit" parent="VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(300, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+placeholder_text = "Put the token to verify here"
+
+[node name="VerifySession" type="Button" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Verify"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="UserVerificationTitle" type="Label" parent="VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "User Verification"
+
+[node name="UserId" type="TextEdit" parent="VBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(300, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+placeholder_text = "Put the userid  to verify here"
+
+[node name="EmailAddress" type="TextEdit" parent="VBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(300, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+placeholder_text = "Put the email address  to verify here"
+
+[node name="VerifyUser" type="Button" parent="VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Verify"
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="PasswordResetTitle" type="Label" parent="VBoxContainer/VBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Password Reset"
+
+[node name="EmailAddress" type="TextEdit" parent="VBoxContainer/VBoxContainer3"]
+custom_minimum_size = Vector2(300, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+placeholder_text = "Put the email address  to verify here"
+
+[node name="ResetPassword" type="Button" parent="VBoxContainer/VBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Reset Password"
+
+[node name="DeleteWLSession" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Delete session"
+
+[connection signal="pressed" from="VBoxContainer/ButtonBox/Sign-Up" to="." method="_on_sign_up_pressed"]
+[connection signal="pressed" from="VBoxContainer/ButtonBox/Sign-In" to="." method="_on_sign_in_pressed"]
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/VerifySession" to="." method="_on_verify_pressed"]
+[connection signal="pressed" from="VBoxContainer/VBoxContainer2/VerifyUser" to="." method="_on_verify_user_pressed"]
+[connection signal="pressed" from="VBoxContainer/VBoxContainer3/ResetPassword" to="." method="_on_reset_password_pressed"]
+[connection signal="pressed" from="VBoxContainer/DeleteWLSession" to="." method="_on_delete_wl_session_pressed"]

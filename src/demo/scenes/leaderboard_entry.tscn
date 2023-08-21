@@ -1,0 +1,58 @@
+[gd_scene load_steps=3 format=3 uid="uid://b26ktaha3dgso"]
+
+[ext_resource type="Script" path="res://demo/scripts/leaderboard_entry.gd" id="1_6vbwn"]
+
+[sub_resource type="SystemFont" id="SystemFont_58hed"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6vbwn")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 100
+
+[node name="Rank" type="Label" parent="HBoxContainer"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = SubResource("SystemFont_58hed")
+theme_override_font_sizes/font_size = 24
+text = "#1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Player" type="Label" parent="HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = SubResource("SystemFont_58hed")
+theme_override_font_sizes/font_size = 24
+text = "PlayerName"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Score" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = SubResource("SystemFont_58hed")
+theme_override_font_sizes/font_size = 24
+text = "123456"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Data" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = SubResource("SystemFont_58hed")
+theme_override_font_sizes/font_size = 24
+text = "METADATA"
+horizontal_alignment = 1
+vertical_alignment = 1
