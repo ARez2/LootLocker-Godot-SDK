@@ -8,62 +8,17 @@
 
 config_version=5
 
-_global_script_classes=[{
-"base": "Node",
-"class": &"LootLockerDataVault",
-"language": &"GDScript",
-"path": "res://LootLockerSDK/LootLockerUserDataVault.gd"
-}, {
-"base": "RefCounted",
-"class": &"LootLockerLeaderboardPagination",
-"language": &"GDScript",
-"path": "res://LootLockerSDK/leaderboards/LeaderboardsPagination.gd"
-}, {
-"base": "RefCounted",
-"class": &"LootLockerLeaderboardResult",
-"language": &"GDScript",
-"path": "res://LootLockerSDK/leaderboards/LeaderboardResult.gd"
-}, {
-"base": "RefCounted",
-"class": &"LootLockerLeaderboards",
-"language": &"GDScript",
-"path": "res://LootLockerSDK/leaderboards/LootLockerLeaderboards.gd"
-}, {
-"base": "RefCounted",
-"class": &"LootLockerLeaderboardsResponse",
-"language": &"GDScript",
-"path": "res://LootLockerSDK/leaderboards/LeaderboardsResponse.gd"
-}, {
-"base": "RefCounted",
-"class": &"LootLockerSession",
-"language": &"GDScript",
-"path": "res://LootLockerSDK/LootLockerSession.gd"
-}, {
-"base": "Node",
-"class": &"LootLockerUser",
-"language": &"GDScript",
-"path": "res://LootLockerSDK/user/LootLockerUser.gd"
-}]
-_global_script_class_icons={
-"LootLockerDataVault": "",
-"LootLockerLeaderboardPagination": "",
-"LootLockerLeaderboardResult": "",
-"LootLockerLeaderboards": "",
-"LootLockerLeaderboardsResponse": "",
-"LootLockerSession": "",
-"LootLockerUser": ""
-}
-
 [application]
 
 config/name="LootLocker-Godot-SDK"
-run/main_scene="res://loot_locker_demo.tscn"
+run/main_scene="res://demo/scenes/sdk_init-load.tscn"
+config/features=PackedStringArray("4.2")
 config/icon="res://icon.png"
-config/features=PackedStringArray("4.0", "Vulkan Clustered")
 
 [autoload]
 
 LootLocker="*res://LootLockerSDK/LootLocker.gd"
+Constants="*res://LootLockerSDK/Constants.gd"
 
 [editor_plugins]
 
