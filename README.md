@@ -1,13 +1,16 @@
 # LootLocker-Godot-SDK
 
 ## Disclaimer
-This was just the beginning of an SDK for Godot. The LootLocker Team said that it has plans for an official Godot SDK, but as for now, this is what I came up with.
-It also by far does not cover all the LootLocker features as Ares2 have just added the most important features that I needed. Those include
+This was just the beginning of an SDK for _Godot_. The _LootLocker_ Team said that it has plans for an official _Godot_ SDK, but as for now, this is what Ares2 came up with.
+
+It also by far does not cover all the LootLocker features as Ares2 have just added the most important features that are needed. Those include:
+
 - User authentication (guest login, white label login, Steam & Google will come later first)
 - Leaderboards (almost all features)
 - some misc features (ping)
 
-This is a work in progress, it is barely usable for now, so DO NOT report issue as there are plenty, known or not yet known. You still can submit PR for features, bug fix or other things.
+This is a work in progress, it is barely usable for now, so **DO NOT** report issue as there are plenty, known or not yet known. You still can submit PR for features, bug fix or other things.
+
 Stay tuned.
 
 ## Quick Start
@@ -67,5 +70,6 @@ TODO (add guest login + leaderboard, then maybe a WL version of auth)
 
 ## Q & A
 
-### question 1
-answer 1
+### What is LootLocker ? What are the benefits from this thing ? And all other LootLocker related questions
+
+Best answers you can get are already available at [LootLocker documentation website](https://docs.lootlocker.com/the-basics/what-is-lootlocker), you are strongly advised to go there, read and decide if _LootLocker_ can be of any help to your project.
