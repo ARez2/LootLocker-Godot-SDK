@@ -22,3 +22,7 @@ Click on settings icon, then keys as displayed on the picture below
 (note these keys are **mine**, and I don't mind these as this is just a dummy game created for the purpose of this documentation, you'll see different values for you own keys to use later)
 
 I willingly don't go deep into the details as the official documentation cover already everything so, again, use it.
+
+For now, only the API key is use by the SDK. So we're ready to dive into the matter and actually setup the SDK, let'go !
+
+## Setup the SDK
