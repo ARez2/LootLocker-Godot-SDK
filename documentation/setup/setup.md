@@ -9,4 +9,16 @@ Go to [LootLocker website](https://lootlocker.com/) and click on the big button 
 Enter you email address and a password, then follow the account creation process.
 Then, a good place to start is the [documentation](https://docs.lootlocker.com/the-basics/readme), it's worth reading it to understand the basics and be able to build on strong foundations.
 
-Create a game, get API key and game key
+## Create a game
+
+Create a game, give it the name you want, "_SDK-test_" could be a good one for our purpose here.
+
+## Get keys
+
+The **keys** will be use to be able to interact with _LootLocker_ system using the SDK.
+Click on settings icon, then keys as displayed on the picture below
+
+![LL-keys2](https://github.com/ARez2/LootLocker-Godot-SDK/assets/136735040/08627d7b-d083-4787-9323-a852e65d4232)
+(note these keys are **mine**, and I don't mind these as this is just a dummy game created for the purpose of this documentation, you'll see different values for you own keys to use later)
+
+I willingly don't go deep into the details as the official documentation cover already everything so, again, use it.
