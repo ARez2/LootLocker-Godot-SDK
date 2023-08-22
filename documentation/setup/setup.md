@@ -29,6 +29,8 @@ For now, only the API key is use by the SDK. So we're ready to dive into the mat
 
 ## Setup the SDK
 
+### standard setup
+
 * Create a file name "_.sdk_data_password_" in your project user files directory (you do need to run your project at least once before, so it need even a dummy scene which does nothing yet, or create the folder yourself, see _Godot_ documention for files location on your system). On _windows_, directory is "`C:\Users\<username>\AppData\Roaming\Godot\app_userdata\LootLocker-Godot-SDK`"
 ("_LootLocker-Godot-SDK_" is the Godot project, to replace with the actual name of your project if it's not the SDK project itself)
 
@@ -46,3 +48,19 @@ Note: in the current release (early alpha) of the SDK, I do not use server and d
 * Run the scene, result of _save_sdk_data_ function should be **0** and nothing more printed in output.
 
 * Just to check everything's fine, you can run the "_sdk_init-load_" scene which will print keys values you've entered previsouly. If it doesn't work, there is an issue somewhere which needed to be fixed before moving forward.
+
+### alternative setup
+
+This is only for testing or if you don't care of the data as they could be extracted from code in a way or another.
+just call the _setup_ function with your own keys and settings like this:
+
+`LootLocker.setup("dev_aaaaaaaaabbbbbbcccccc", "domainkey", "0.0.0.1", true, true)`
+
+Parameters are:
+* the API key,
+* the domain key,
+* the game version,
+* dev mode (bool),
+* synchronous mode (bool)  [for later]
+
+It does not yet include all keys as you can see.
