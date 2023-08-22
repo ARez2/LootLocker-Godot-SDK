@@ -20,6 +20,7 @@ The **keys** will be use to be able to interact with _LootLocker_ system using t
 Click on settings icon, then keys as displayed on the picture below
 
 ![LL-keys2](https://github.com/ARez2/LootLocker-Godot-SDK/assets/136735040/08627d7b-d083-4787-9323-a852e65d4232)
+
 (note these keys are **mine**, and I don't mind these as this is just a dummy game created for the purpose of this documentation, you'll see different values for you own keys to use later)
 
 I willingly don't go deep into the details as the official documentation cover already everything so, again, use it.
