@@ -26,3 +26,10 @@ I willingly don't go deep into the details as the official documentation cover a
 For now, only the API key is use by the SDK. So we're ready to dive into the matter and actually setup the SDK, let'go !
 
 ## Setup the SDK
+
+* Create a file name "_.sdk_data_password_" in your project user files directory (you do need to run your project at least once before, so it need even a dummy scene which does nothing yet, or create the folder yourself, see _Godot_ documention for files location on your system). On _windows_, directory is "`C:\Users\<username>\AppData\Roaming\Godot\app_userdata\LootLocker-Godot-SDK`"
+("_LootLocker-Godot-SDK_" is the Godot project, to replace with the actual name of your project if it's not the SDK project itself)
+
+* Put the password you want to use to protect your _LootLocker_'s keys in clear text (the password)
+	`example: thisISmySECRETpassword`
+**no space**, **no tab**, **no line return**, **no anything** except the password alone, all characters there will be considered as the password.
