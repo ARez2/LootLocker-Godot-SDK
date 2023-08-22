@@ -70,6 +70,18 @@ TODO (add guest login + leaderboard, then maybe a WL version of auth)
 
 ## Q & A
 
-### What is LootLocker ? What are the benefits from this thing ? And all other LootLocker related questions
+### What is LootLocker ? What are the benefits from this thing ? And all other LootLocker related questions.
 
 Best answers you can get are already available at [LootLocker documentation website](https://docs.lootlocker.com/the-basics/what-is-lootlocker), you are strongly advised to go there, read and decide if _LootLocker_ can be of any help to your project.
+
+### Does this SDK will be compatible with other platform SDK made by LootLocker ?
+
+Short answer: no.
+It doesn't make sense to me to replicate the exact same thing of the Unity and Unreal SDK, at least for now, as why on Earth and in the Universe, someone would want easy transition from Unity/Unreal to/from Godot for a given project ? All these engines are competitors on the same field.
+Of course, for quite an upgrade from a free engine which is not yet mature to a "better" competitor, it make sense, anyway, nothing is carved in stone and also programming, and game programming, is also a matter of adapt and evolve, so anyone good enough could figure out how to use one feature or another no matter how it is implemented in a SDK or another.
+
+### Which Godot version is supported ?
+
+This SDK is currently coded using 4.2-dev3 release, it will be most likely compatible with the most up to date 4.x release ONLY. And further releases as they'll come.
+
+
