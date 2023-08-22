@@ -31,5 +31,16 @@ For now, only the API key is use by the SDK. So we're ready to dive into the mat
 ("_LootLocker-Godot-SDK_" is the Godot project, to replace with the actual name of your project if it's not the SDK project itself)
 
 * Put the password you want to use to protect your _LootLocker_'s keys in clear text (the password)
+  
 	`example: thisISmySECRETpassword`
+
 **no space**, **no tab**, **no line return**, **no anything** except the password alone, all characters there will be considered as the password.
+
+* Open the scene "_sdk_init-save_", click on script icon of the lonely node named "_test-SDKinit_"
+**replace all keys** values by your own as well as game version.
+
+Note: in the current release (early alpha) of the SDK, I do not use server and domain keys yet.
+
+* Run the scene, result of _save_sdk_data_ function should be **0** and nothing more printed in output.
+
+* Just to check everything's fine, you can run the "_sdk_init-load_" scene which will print keys values you've entered previsouly. If it doesn't work, there is an issue somewhere which needed to be fixed before moving forward.
