@@ -43,7 +43,7 @@ For now, only the API key is use by the SDK. So we're ready to dive into the mat
 * Open the scene "_sdk_init-save_", click on script icon of the lonely node named "_test-SDKinit_"
 **replace all keys** values by your own as well as game version.
 
-Note: in the current release (early alpha) of the SDK, I do not use server and domain keys yet.
+Note: in the current release (early alpha) of the SDK, I do not use server key yet.
 
 * Run the scene, result of _save_sdk_data_ function should be **0** and nothing more printed in output.
 
