@@ -29,11 +29,11 @@ TODO
 
 ## Demos included
 
-### [SDK init](./src/demo/test-SDKinit.gd)
+### [SDK init](./src/demo/scripts/test-SDKinit.gd)
 
 This sample shows how to initialize the SDK in order to use it with your game.
 
-### [ping test](./src/demo/ping_test.gd)
+### [ping test](./src/demo/scripts/ping_test.gd)
 
 Just a little sample of _ping_ call.
 
