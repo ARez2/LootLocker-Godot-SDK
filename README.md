@@ -21,28 +21,19 @@ TODO
 
 ## Installation
 
-### Setup files
-
-### Project setup
+### [Setup](./documentation/setup/setup.md)
 
 ## Usage
 
 ### Authentication
 
-#### Guest Login
-
-#### White Label
-
-#### Platform Login
-TODO
-
 ## Demos included
 
-### SDK init
+### [SDK init](./src/demo/test-SDKinit.gd)
 
 This sample shows how to initialize the SDK in order to use it with your game.
 
-### ping test
+### [ping test](./src/demo/ping_test.gd)
 
 Just a little sample of _ping_ call.
 
