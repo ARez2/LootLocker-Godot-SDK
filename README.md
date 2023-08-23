@@ -73,6 +73,18 @@ Of course, for quite an upgrade from a free engine which is not yet mature to a 
 
 ### Which Godot version is supported ?
 
-This SDK is currently coded using 4.2-dev3 release, it will be most likely compatible with the most up to date 4.x release ONLY. And further releases as they'll come.
+This SDK is currently coded using **4.2-dev3** release of _Godot_ engine, it will be most likely compatible with the most up to date 4.x release ONLY. And further releases as they'll come.
+It has only been tested on _Windows_ for now. It may or may not work on other platforms.
 
+### Does this SDK is usable ?
+
+Right now, not really, as error management especially is really really bad (it sucks to be honest) ! DO NOT use it YET, be patient, contribute if you can and will.
+
+### What is the plan for the following weeks/months ?
+
+To continue working on the core of the SDK (low-level HTTPRequest handler and error management), add more _LootLocker_ features, in random order:
+* Google Auth,
+* Steam Auth,
+* some Player stuff,
+* things I don't know yet (achievements for instance, if they are added soon)
 
