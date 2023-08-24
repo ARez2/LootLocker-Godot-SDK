@@ -29,31 +29,33 @@ TODO
 
 ## Demos included
 
+Links in the title point to the script and not the scene as first, the scene is not very nice to display here, second, I guess the script is most interesting in the purpose of learning how to use this SDK and _LootLocker_ features.
+
 ### [SDK init](./src/demo/scripts/test-SDKinit.gd)
 
 This sample shows how to initialize the SDK in order to use it with your game.
 
 ### [ping test](./src/demo/scripts/ping_test.gd)
 
-Just a little sample of _ping_ call.
+Just a little sample of _ping_ call (see [documentation](https://ref.lootlocker.com/game-api/#server-time).
 
-### guest login demo
+### [guest login demo](./src/demo/scripts/guest_login_demo.gd)
 
-As the title suggest, this is the basic authentication to LootLocker backend. It is used to hide auth mechanism from players who just want to play your game without having to create first another account somewhere and give away tons of private informations :).
+As the title suggest, this is the basic authentication to _LootLocker_ backend. It is used to hide auth mechanism from players who just want to play your game without having to create first another account somewhere and give away tons of private informations :).
 
-### white label demo
+### [white label demo](./src/demo/scripts/white_label_demo.gd)
 
-As opposite to the previous auth method, this one use email/password combination and account creation, with eail verification step. It is used to deal with various features like plyers's inventory, progression, mission, and many more, where a dedicated account is more than needed and worth the time spent.
+As opposite to the previous auth method, this one use email/password combination and account creation, with email verification step. It is used to deal with various features like plyers's inventory, progression, mission, and many more, where a dedicated account is more than needed and worth the time spent creating it.
 
-### generate data
+### [generate data](./src/demo/scripts/generate_data.gd)
 
-A little program to create many random players at once and submit random score to a given leaderboard.Mostly for testing purpose.
+A little program to create many random basic players (no additionnal data except a name) at once and submit random score to a given leaderboard. Mostly for testing purpose.
 
-### fake game demo
+### [fake game demo](./src/demo/scripts/fake_game_demo.gd)
 
-This is what a game could be regarding player auth & leaderboard interactions.
+This is what a game could be regarding player auth (guest) & leaderboard interactions.
 
-## Sample game provided
+## Sample game provided (_soon_)
 
 ### Dodge the creeps official tutorial game
 
@@ -88,3 +90,13 @@ To continue working on the core of the SDK (low-level HTTPRequest handler and er
 * some Player stuff,
 * things I don't know yet (achievements for instance, if they are added soon)
 
+### The feature I want/need is not yet implemented, what should I do ?
+
+Here you have multiple choices according to how bad you need this feature:
+* add it yourself and smbit a PR,
+* ask kindly for it,
+* contribute by giving some money, the more you give, the fastest you may expect to have it
+
+Why asking for money ? Simply because I have my own schedule and tasks to do and also do what it need for living, so in order to spent time working on something not yet planned, which could need quite some time to work on, test it properly and so on and reordering my priorities to match your own, an extra motivation will be fairly needed.
+
+**Note:** implementing a feature which depend on one or more features not yet implemented themselves will take (a lot) more time to complete.
