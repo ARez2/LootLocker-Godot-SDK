@@ -59,7 +59,8 @@ This is what a game could be regarding player auth (guest) & leaderboard interac
 
 ### Dodge the creeps official tutorial game
 
-TODO (add guest login + leaderboard, then maybe a WL version of auth)
+Here is the [repository](https://github.com/Infini-Creation/Dodge-The-Creeps-LootLocker-Leaderboard-Demo) of the game, it includes guest login and leaderboard.
+I'll eventually add some bonuses to spice up the game later.
 
 ## Q & A
 
