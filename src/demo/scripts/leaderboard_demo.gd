@@ -4,6 +4,7 @@ var PlayerData : Dictionary = {
 	"player_identifier": ""
 }
 
+@export var playerSlot : int = 2
 var leaderboard_entry : PackedScene = preload("res://demo/scenes/leaderboard_entry.tscn")
 
 func _ready():
@@ -28,8 +29,7 @@ func _on_login_pressed():
 		update_status("logged in")
 		$MarginContainer/VBoxContainer/HBoxContainer/Button.disabled = false
 		$MarginContainer/VBoxContainer/HBoxContainer2/NameButton.disabled = false
-		LootLocker.leaderboard.session_token = LootLocker.session.token
-		LootLocker.leaderboard.leaderboard_key = "LBKEY"
+		LootLocker.add_leaderboard({"key": "LBKEY", "session-token": LootLocker.session.token})
 	else:
 		update_status("Fail to login !")
 
@@ -46,12 +46,12 @@ func _on_logout_pressed():
 
 
 func _on_leaderboard_pressed():
-	var result = await LootLocker.leaderboard.get_leaderboard()
+	var result = await LootLocker.leaderboard.get_leaderboard({})
 	print("leaderboard get res="+str(result))
 	if result == OK:
 		update_status("leaderboard aquired")
-		print("LB="+str(LootLocker.leaderboard.leaderboards["LBKEY"]))
-		fill_leaderboard($"MarginContainer/VBoxContainer/Leaderboard-data", LootLocker.leaderboard.leaderboards["LBKEY"])
+		print("LB="+str(LootLocker.leaderboard.data))
+		fill_leaderboard($"MarginContainer/VBoxContainer/Leaderboard-data", LootLocker.leaderboard.data["scores"])
 	else:
 		update_status("Fail to get leaderboard !")
 

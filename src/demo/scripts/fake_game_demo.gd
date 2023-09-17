@@ -7,6 +7,8 @@ var PlayerData : Dictionary = {
 var leaderboard_entry : PackedScene = preload("res://demo/scenes/leaderboard_entry.tscn")
 
 @export var LeaderboardKey : String = ""
+@export var lower_score : int
+@export var upper_score : int
 
 func _ready():
 	update_status("guest login...")
@@ -21,9 +23,9 @@ func _ready():
 	var result = await LootLocker.guest_login(PlayerData["player_identifier"])
 	if result == OK:
 		update_status("logged in (as guest)")
-		LootLocker.leaderboard.session_token = LootLocker.session.token
-		LootLocker.leaderboard.player = LootLocker.current_user
-		LootLocker.leaderboard.leaderboard_key = LeaderboardKey
+		#LootLocker.leaderboard.session_token = LootLocker.session.token
+		#LootLocker.leaderboard.player = LootLocker.current_user
+		#LootLocker.leaderboard.leaderboard_key = LeaderboardKey
 		var pname : String = ""
 		if LootLocker.current_user.PLAYERSDATA["player_name"] != "":
 		#if PlayerData["player_name"] != "":
@@ -31,6 +33,8 @@ func _ready():
 		else:
 			pname = LootLocker.current_user.PLAYERSDATA["public_uid"] #PlayerData["public_uid"]
 		$VBoxContainer/PlayerName.text = "Your name: "+pname
+		
+		LootLocker.add_leaderboard({"key": LeaderboardKey, "session-token": LootLocker.session.token})
 	else:
 		update_status("login error !")
 	
@@ -43,7 +47,7 @@ func _on_play_pressed():
 	update_status("playing game...")
 	$VBoxContainer/Play.disabled = true
 	await get_tree().create_timer(3).timeout
-	var score : int = randi_range(99000,999000)
+	var score : int = randi_range(lower_score,upper_score)
 	update_status("game over, get score: "+str(score))
 	$VBoxContainer/Score.text = "Your score: "+str(score)
 	await get_tree().create_timer(1.0).timeout
@@ -67,8 +71,8 @@ func _on_play_pressed():
 	
 	if result == OK:
 		update_status("leaderboard aquired")
-		print("LB="+str(LootLocker.leaderboard.leaderboards[LeaderboardKey]))
-		fill_leaderboard($VBoxContainer/Leaderboard, LootLocker.leaderboard.leaderboards[LeaderboardKey])
+		print("LB="+str(LootLocker.leaderboard.data))
+		fill_leaderboard($VBoxContainer/Leaderboard, LootLocker.leaderboard.data["scores"])
 	else:
 		update_status("Fail to get leaderboard !")
 
