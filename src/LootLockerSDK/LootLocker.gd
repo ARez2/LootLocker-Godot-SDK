@@ -34,29 +34,28 @@ var lootLockerUtils : LootLockerUtils
 var httpObject : HTTPRequest
 
 var session : LootLockerSession = null
-var leaderboard : LootLockerLeaderBoards = null
+var leaderboard : LootLockerLeaderBoard = null #or dic of LB object, 1 per id/key
+#var leaderboards : Dictionary = {} #LootLockerLeaderBoard
 var current_user : LootLockerPlayer = null
 var misc : LootLockerMisc = null
 #var operation_in_progress : bool = false #to remove maybe
 
 #TODO: put auth func in their own script/class
-#purpose of this is ti hold things together only
+#purpose of this is to hold things together only
 # AND having a way to store active sessions
 
 #--
 var json = JSON.new()	#tmp
 
-# not here
-#var leaderboards : LootLockerLeaderboards = LootLockerLeaderboards.new()
-#--
 
 func _ready():
 	print("LootLocker base class added to tree")
+
 	lootLockerUtils = LootLockerUtils.new()
 	lootLockerUtils.tree = self
 	lootLockerUtils.synchronous = synchronous
+
 	session = LootLockerSession.new()
-	leaderboard = LootLockerLeaderBoards.new()
 	current_user = LootLockerPlayer.new()
 	misc = LootLockerMisc.new()
 
@@ -67,6 +66,23 @@ func setup(api_key : String, domain_key : String, version : String, dev_mode : b
 	GAME_VERSION = version
 	DEV_MODE = dev_mode
 	synchronous = synchronous_mode
+
+
+# param : id : int or key : string, id is prioritary over key
+func add_leaderboard(args : Dictionary) -> int:
+	var status : int = OK
+
+	if args == null:
+		args = {}
+
+	args["player"] = current_user
+	args["misc"] = misc
+	args["session-token"] = session.token
+
+	leaderboard = LootLockerLeaderBoard.new()
+	leaderboard.init(args)
+	
+	return status
 
 
 func setup_from_file() -> void:
@@ -89,6 +105,7 @@ func guest_login(player_identifier : String = "") -> int:
 	
 	var status = OK
 
+	print("UA ==> "+Constants.USER_AGENT)
 	print("[guest_login]: begin")
 	var data = { "game_key": API_KEY, "game_version": GAME_VERSION, "development_mode": DEV_MODE }
 	
