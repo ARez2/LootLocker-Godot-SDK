@@ -6,6 +6,8 @@ static var SDK_LOOTLOCKER_COMPATIBILITY : String = "0"
 static var SDK_GODOT_COMPATIBILITY : String = "4.2"
 static var SDK_COMPATIBILITY : Array = ["a0.01"]
 
+static var USER_AGENT : String = "LootLocker SDK/" + SDK_VERSION + " (" + OS.get_name() + "; " + Engine.get_architecture_name() + " Godot " + Engine.get_version_info()["string"] + ")"
+
 static var LOOTLOCKER_API_BASE_URL : String= "https://api.lootlocker.io/"
 
 # Guest
