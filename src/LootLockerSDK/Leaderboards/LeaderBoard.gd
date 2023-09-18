@@ -1,5 +1,5 @@
 extends Node
-class_name LootLockerLeaderBoards
+class_name LootLockerLeaderBoard
 
 #const LEADERBOARDS_URL = LootLocker.LOOTLOCKER_API_BASE_URL + "game/leaderboards/"
 	#+leaderboard_key+"/list?count=10"
